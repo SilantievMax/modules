@@ -46,7 +46,10 @@ export const subtraction = (a, b) => {
 
 export const multiplications = (a, b) => {
   const x = a.split("").reverse();
-  const y = b.split("").reverse();
+  const y = b
+    .split("")
+    .reverse()
+    .filter((i) => i != ".");
   const result = [];
 
   for (let i = 0; i < x.length; i++) {
@@ -68,6 +71,81 @@ export const multiplications = (a, b) => {
   return result.reverse().join("");
 };
 
-export const division = (num, den) => {
+export const division = (a, b) => {
+  let half1 = a;
+  let half2 = b;
+  let count = 0;
+  let count2 = 0;
+  let x = a;
+  let y = b;
 
+
+  while (!Number.isFinite(x * y)) {
+    half1 = multiplications(half1, "0.5");
+    count++;
+    x =
+      half1[0] === "0"
+        ? half1.slice(1, half1.length - count) + "." + half1.slice(half1.length - count)
+        : half1.slice(0, half1.length - count) + "." + half1.slice(half1.length - count);
+    half2 = multiplications(half2, "0.5");
+    count2++;
+    y =
+      half2[0] === "0"
+        ? half2.slice(1, half2.length - count2) + "." + half2.slice(half2.length - count2)
+        : half2.slice(0, half2.length - count2) + "." + half2.slice(half2.length - count2);
+  }
+
+  return x / y
+
+  // for (let i = 0; i <= 3; i++) {
+  //   half1 = multiplications(half1, "0.5");
+  //   count++;
+  //   x =
+  //     half1[0] === "0"
+  //       ? half1.slice(1, half1.length - count) + "." + half1.slice(half1.length - count)
+  //       : half1.slice(0, half1.length - count) + "." + half1.slice(half1.length - count);
+  // }
+
+  // for (let i = 0; i <= 3; i++) {
+  //   half2 = multiplications(half2, "0.5");
+  //   count2++;
+  //   y =
+  //     half2[0] === "0"
+  //       ? half2.slice(1, half2.length - count2) + "." + half2.slice(half2.length - count2)
+  //       : half2.slice(0, half2.length - count2) + "." + half2.slice(half2.length - count2);
+  // }
+
+  // console.log(half2);
+  // const resultMulti = result.reverse().join("");
+  // const sss = resultMulti[0] === "0" ? resultMulti.slice(1, resultMulti.length - 1) + "." + resultMulti.slice(resultMulti.length - 1) : resultMulti;
+
+  // let quotient = Array(x.length).fill(0);
+
+  // const result = multiplications(a, "0.5");
+  // console.log(result)
+
+  // for (let i = x.length - 1; i >= 0; i--) {
+  //   let temp = x[i];
+  //   let j = quotient.length - 1;
+
+  //   while (temp > 0 && j >= 0) {
+  //     let product = y[y.length - 1] * temp;
+  //     let carry = 0;
+  //     for (let i = y.length - 1; i >= 0; i--) {
+  //       product += carry;
+  //       carry = Math.floor(product / 10);
+  //       product %= 10;
+  //       product += y[i] * quotient[j];
+  //       quotient[j] = Math.floor(product / 10);
+  //       product %= 10;
+  //     }
+  //     temp = carry;
+  //     j--;
+  //   }
+  // }
+
+  // quotient = quotient.join("");
+  // // quotient = quotient.join("").replace(/^0+(?=\d)/, "");
+  // console.log(a / b);
+  // return quotient;
 };
